@@ -173,7 +173,6 @@ const data = [
 // console.log(getTotlaReviewCount(book));
 
 const titles = data.map((book) => book.title);
-console.log(titles);
 
 function getTotlaReviewCount(book) {
   const goodreadsReviewsCount = book.reviews.goodreads.reviewsCount;
@@ -186,4 +185,52 @@ const essentialData = data.map((book) => ({
   author: book.author,
   totlaReview: getTotlaReviewCount(book),
 }));
-console.log(essentialData);
+
+const longBooksWithMovie = data
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+
+const adventureBooks = data
+  .filter((book) => book.genres.includes("adventure"))
+  .map((book) => book.title);
+
+const totalPageCount = data.reduce((acc, book) => acc + book.pages, 0);
+
+const arr = [3, 7, 4, 6, 9, 10];
+const sortedArr = arr.slice().sort((a, b) => a - b);
+
+const sortedByPages = data.slice().sort((a, b) => a.pages - b.pages);
+
+// 1) add new book to the array
+const newBook = {
+  id: 6,
+  title: "HP an the chmber of secrets",
+  author: "J. K. Rowling",
+};
+
+const booksAfterAdd = [...data, newBook];
+
+// 2) delete a book from the array
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+
+// 3) update a book in the array
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id === 1 ? { ...book, pages: 1 } : book
+);
+
+// fetch("https://jsonplaceholder.typicode.com/posts").then((response) => {
+//   response.json().then((data) => {
+//     console.log(data);
+//   });
+// });
+
+async function getToDos() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await response.json();
+  console.log(data);
+
+  return data;
+}
+const todos = await getToDos();
+console.log(todos);
+console.log("after");
